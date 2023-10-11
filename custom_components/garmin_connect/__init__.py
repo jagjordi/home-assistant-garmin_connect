@@ -36,6 +36,38 @@ _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS = ["sensor"]
 
+def create_body_composition_fit_file(timestamp, weight=None, percent_fat=None, 
+                                     percent_hydration=None, visceral_fat_mass=None, 
+                                     bone_mass=None, muscle_mass=None):
+                                         
+    file_id_message = FileIdMessage()
+    file_id_message.type = FileType.WEIGHT
+    file_id_message.manufacturer = Manufacturer.DEVELOPMENT.value
+    file_id_message.product = 0
+    file_id_message.time_created = round(timestamp.timestamp() * 1000)
+    file_id_message.serial_number = 0x12345678
+
+    weightmsg = WeightScaleMessage()
+    weightmsg.weight = weight
+    weightmsg.timestamp = round(timestamp.timestamp() * 1000)
+    weightmsg.percent_fat = percent_fat
+    weightmsg.percent_hydration = percent_hydration
+    weightmsg.visceral_fat_mass = visceral_fat_mass
+    weightmsg.bone_mass = bone_mass
+    weightmsg.muscle_mass = muscle_mass
+    weightmsg = [weightmsg]
+
+    builder = FitFileBuilder(auto_define=True, min_string_size=50)
+    builder.add(file_id_message)
+    builder.add_all(weightmsg)
+
+    fit_file = builder.build()
+
+    fn = '/config/custom_components/garmin_connect/tmp.fit'
+    if os.path.isfile(fn):
+        os.remove(fn)
+    fit_file.to_file(fn)
+    return fn
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Garmin Connect from a config entry."""
