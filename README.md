@@ -1,7 +1,7 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/hacs/integration)  [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/cyberjunkynl/)
 
 # Garmin Connect
-The Garmin Connect integration allows you to expose data from Garmin Connect to Home Assistant.
+The Garmin Connect integration allows you to expose data from Garmin Connect to Home Assistant. Modified to be able to upload weight as a FIT file.
 
 NOTE: This integration doesn't support 2FA on Garmin Connect yet (support is coming), so if you have enabled it -and want to keep it- this integration doesn't work, it will try to login repeatedly and generate lots of 2FA codes via email.
 The change of adding support for it is unlikely since the Garmin Connect API is closed source, and will not be open for open-sourced projects.
