@@ -84,6 +84,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
+    def handle_update_weight(call):
+        """Handle the service call."""
+        weight = call.data.get("weight", 50)
+        percent_fat = call.data.get("percent_fat", None)
+        percent_hydration = call.data.get("percent_hydration", None)
+        visceral_fat_mass = call.data.get("visceral_fat_mass", None)
+        bone_mass = call.data.get("bone_mass", None)
+        muscle_mass = call.data.get("muscle_mass", None)
+
+        create_body_composition_fit_file(datetime.datetime.now(), weight, percent_fat, percent_hydration, visceral_fat_mass, bone_mass, muscle_mass)
+        coordinator._api.upload_activity("/config/custom_components/garmin_connect/tmp.fit")
+
+
+    hass.services.async_register(DOMAIN, "update_weight", handle_update_weight)
+    
     return True
 
 
