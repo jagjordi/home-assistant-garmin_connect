@@ -12,11 +12,17 @@ from garminconnect import (
     GarminConnectTooManyRequestsError,
 )
 
+from fit_tool.fit_file_builder import FitFileBuilder
+from fit_tool.profile.messages.file_id_message import FileIdMessage
+from fit_tool.profile.messages.weight_scale_message import WeightScaleMessage
+from fit_tool.profile.profile_type import Manufacturer, FileType
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_PASSWORD, CONF_USERNAME
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import ConfigEntryNotReady, IntegrationError
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+
 
 from .const import (
     DATA_COORDINATOR,
