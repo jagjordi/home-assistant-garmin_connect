@@ -94,7 +94,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         bone_mass = call.data.get("bone_mass", None)
         muscle_mass = call.data.get("muscle_mass", None)
 
-        create_body_composition_fit_file(date.datetime.now(), weight, percent_fat, percent_hydration, visceral_fat_mass, bone_mass, muscle_mass)
+        create_body_composition_fit_file(datetime.now(), weight, percent_fat, percent_hydration, visceral_fat_mass, bone_mass, muscle_mass)
         coordinator._api.upload_activity("/config/custom_components/garmin_connect/tmp.fit")
 
 
