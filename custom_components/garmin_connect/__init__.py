@@ -1,5 +1,6 @@
 """The Garmin Connect integration."""
 from datetime import date
+from datetime import datetime
 from datetime import timedelta
 import logging
 import asyncio
