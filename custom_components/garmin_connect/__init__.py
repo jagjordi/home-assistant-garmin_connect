@@ -4,6 +4,7 @@ from datetime import datetime
 from datetime import timedelta
 import logging
 import asyncio
+import os
 from collections.abc import Awaitable
 
 from garminconnect import (
